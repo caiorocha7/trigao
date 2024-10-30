@@ -59,3 +59,4 @@ end
 gem 'devise'
 gem 'cancancan', '~> 3.0'
 gem 'kaminari'
+gem 'sassc-rails'

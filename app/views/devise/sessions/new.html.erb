@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Trigão</title>
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="logo-container col-sm-6 px-0 d-none d-sm-block">
+          <div class="logo-container-trigao">
+            <img src="<%= asset_path('name_trigao.png') %>" alt="login image" class="login-img">
+          </div>
+          <div class="logo-container-trigao">
+            <p>A panificadora Trigão alia a tradição e a conexão com o cliente,<br> 
+              considerando seus pontos fortes, sempre oferecendo produtos <br> 
+              de qualidade.</p>
+          </div>
+          <div class="logo-container-footer">
+            <p>© copyright 2024 - Caio Delas e Pkzin. Todos os direitos reservados.</p>
+            <p>Acesse nossos termos sobre LGPD aqui!</p>
+          </div>
+        </div>
+
+        <div class="login-form-container col-sm-6 login-section-wrapper">
+          <div class="brand-wrapper">
+            <img src="<%= asset_path('t.png') %>" alt="logo" class="logo-circulo">
+          </div>
+          <div class="login-wrapper my-auto">
+            <h1 class="login-title">Acesso a Plataforma</h1>
+            <p>SISTEMA ONLINE 🟢</p>
+            <p>Versão 1.0.0</p>
+
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Insira seu email..." %>
+              </div>
+
+              <div class="form-group mb-4">
+                <label for="password">Senha</label>
+                <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Insira sua senha..." %>
+              </div>
+
+              <% if devise_mapping.rememberable? %>
+                <div class="form-group">
+                  <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+                </div>
+              <% end %>
+
+              <%= f.submit "Entrar", class: "btn btn-block login-btn" %>
+            <% end %>
+
+            <a href="<%= new_password_path(resource_name) %>" class="forgot-password-link">Esqueceu a senha?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

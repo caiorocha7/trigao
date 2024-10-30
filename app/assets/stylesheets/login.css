@@ -11,11 +11,10 @@
 body {
   font-family: "Karla", sans-serif;
   background-color: #fff;
-  min-height: 100vh; 
+
 }
 
 .logo-container{
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,8 +120,8 @@ body {
   margin-bottom: 25px; }
 
 .login-img {
-  margin-top: 200px;
-  width: 600px;
+  margin-top: 50px;
+  width: 500px;
   height: 300px;
   -o-object-fit: cover;
      object-fit: cover;

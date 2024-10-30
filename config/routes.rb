@@ -1,26 +1,32 @@
 Rails.application.routes.draw do
+  get "admin/dashboard"
+  # Devise authentication with custom sessions controller
   devise_for :users, controllers: { sessions: 'users/sessions' }
+  
+  # Root for authenticated users
+  authenticated :user do
+    root 'admin_dashboard#index', as: :authenticated_root
+  end
 
-  # Produtos
+  # Root for unauthenticated users (login page)
+  devise_scope :user do
+    root to: 'devise/sessions#new'
+    delete 'logout', to: 'devise/sessions#destroy', as: :logout  # Logout route
+  end
+
+  # Products with search
   resources :produtos do
     collection do
       get 'busca', to: 'produtos#search'
     end
   end
 
-  # Encomendas
+  # Orders
   resources :encomendas
 
-  # Relatórios
-  get 'relatorios/produtos_vendidos', to: 'relatorios#produtos_vendidos'
-  get 'relatorios/paes_vendidos', to: 'relatorios#paes_vendidos'
-
-  # Ajustando a rota inicial para a página de login do Devise
-  authenticated :user do
-    root to: "produtos#index", as: :authenticated_root
-  end
-
-  unauthenticated do
-    root to: 'devise/sessions#new', as: :unauthenticated_root
+  # Reports
+  namespace :relatorios do
+    get 'produtos_vendidos', to: 'relatorios#produtos_vendidos'
+    get 'paes_vendidos', to: 'relatorios#paes_vendidos'
   end
 end
