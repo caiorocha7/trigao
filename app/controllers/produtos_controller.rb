@@ -7,9 +7,16 @@ class ProdutosController < ApplicationController
 
   # GET /produtos
   def index
-    @produtos = Produto.page(params[:page]).per(15)  # 15 produtos por página
-    render json: @produtos
+    if Produto.count.zero?
+      load_produtos_from_json
+      @produtos_json.each do |produto_data|
+        Produto.create!(produto_data) # Insere cada produto no banco
+      end
+    end
+  
+    @produtos = Produto.page(params[:page]).per(15) # Paginado a partir do banco
   end
+  
 
   # GET /produtos/:id
   def show

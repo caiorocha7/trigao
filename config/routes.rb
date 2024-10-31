@@ -1,30 +1,36 @@
 Rails.application.routes.draw do
-  get "admin/dashboard"
-  # Devise authentication with custom sessions controller
+  # Rota para o dashboard do administrador
+  get "admin/dashboard", to: "admin#dashboard", as: :dashboard
+
+  # Configuração do Devise para autenticação de usuários, com sessão personalizada
   devise_for :users, controllers: { sessions: 'users/sessions' }
   
-  # Root for authenticated users
+  # Rotas para usuários, restritas apenas para ações de index e show
+  resources :users, only: [:index, :show]
+
+  # Rota principal para usuários autenticados, direcionando para o dashboard do administrador
   authenticated :user do
-    root 'admin_dashboard#index', as: :authenticated_root
+    root 'admin#dashboard', as: :authenticated_root
+    get 'settings', to: 'admin#settings', as: :settings
   end
 
-  # Root for unauthenticated users (login page)
+  # Rota principal para usuários não autenticados, direcionando para a página de login do Devise
   devise_scope :user do
     root to: 'devise/sessions#new'
-    delete 'logout', to: 'devise/sessions#destroy', as: :logout  # Logout route
+    delete 'logout', to: 'devise/sessions#destroy', as: :logout
   end
 
-  # Products with search
-  resources :produtos do
+  # Rotas para produtos, incluindo busca personalizada
+  resources :produtos, except: [:new, :edit] do
     collection do
-      get 'busca', to: 'produtos#search'
+      get 'busca', to: 'produtos#search', as: :search
     end
   end
 
-  # Orders
-  resources :encomendas
+  # Rotas para encomendas (pedidos)
+  resources :encomendas, except: [:new, :edit]
 
-  # Reports
+  # Namespace para relatórios, com rotas específicas para cada relatório
   namespace :relatorios do
     get 'produtos_vendidos', to: 'relatorios#produtos_vendidos'
     get 'paes_vendidos', to: 'relatorios#paes_vendidos'

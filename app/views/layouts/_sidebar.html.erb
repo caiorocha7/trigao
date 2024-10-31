@@ -1,0 +1,46 @@
+<section id="sidebar">
+  <a href="#" class="brand">
+    <i class="bx bxs-smile"></i>
+    <span class="text">Admin</span>
+  </a>
+  <ul class="side-menu top">
+    <li class="active">
+      <%= link_to dashboard_path do %>
+        <i class="bx bxs-dashboard"></i>
+        <span class="text">Dashboard</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to encomendas_path do %>
+        <i class="bx bxs-shopping-bag-alt"></i>
+        <span class="text">Pedidos</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to produtos_path do %>
+        <i class="bx bxs-doughnut-chart"></i>
+        <span class="text">Produtos</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to users_path do %>
+        <i class="bx bxs-group"></i>
+        <span class="text">Usuário</span>
+      <% end %>
+    </li>
+  </ul>
+  <ul class="side-menu">
+    <li>
+      <%= link_to '#', class: 'settings' do %>
+        <i class="bx bxs-cog"></i>
+        <span class="text">Configurações</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to destroy_user_session_path, method: :delete, class: 'logout' do %>
+        <i class="bx bxs-log-out-circle"></i>
+        <span class="text">Sair</span>
+      <% end %>
+    </li>
+  </ul>
+</section>

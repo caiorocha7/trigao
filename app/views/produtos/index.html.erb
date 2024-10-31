@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet">
+  <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbo-track': 'reload' %>
+  <title>Produtos - Admin</title>
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <%= render 'layouts/sidebar' %>
+
+  <!-- CONTENT -->
+  <section id="content">
+    <!-- NAVBAR -->
+    <%= render 'layouts/navbar' %>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <div class="head-title">
+        <div class="left">
+          <h1>Produtos</h1>
+          <ul class="breadcrumb">
+            <li><%= link_to 'Dashboard', dashboard_path %></li>
+            <li><i class="bx bx-chevron-right"></i></li>
+            <li><a class="active" href="#">Produtos</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="table-data">
+        <div class="order">
+          <div class="head">
+            <h3>Lista de Produtos</h3>
+            <i class="bx bx-search"></i>
+            <i class="bx bx-filter"></i>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Seção</th>
+                <th>Preço</th>
+                <th>Unidade</th>
+                <th>Quantidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @produtos.each do |produto| %>
+                <tr>
+                  <td><%= produto.codigo %></td>
+                  <td><%= produto.nome %></td>
+                  <td><%= produto.secao %></td>
+                  <td>R$ <%= number_to_currency(produto.preco, unit: "R$", separator: ",", delimiter: ".") %></td>
+                  <td><%= produto.unidade %></td>
+                  <td><%= produto.quantidade %> unidades</td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <%= paginate @produtos %>
+          </div>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <%= javascript_include_tag 'admin', 'data-turbo-track': 'reload' %>
+</body>
+</html>
