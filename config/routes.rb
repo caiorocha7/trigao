@@ -2,11 +2,8 @@ Rails.application.routes.draw do
   # Rota para o dashboard do administrador
   get "admin/dashboard", to: "admin#dashboard", as: :dashboard
 
-  # Configuração do Devise para autenticação de usuários, com sessão personalizada
-  devise_for :users, controllers: { sessions: 'users/sessions' }
-  
-  # Rotas para usuários, restritas apenas para ações de index e show
-  resources :users, only: [:index, :show]
+  # Configuração do Devise para autenticação de usuários
+  devise_for :users
 
   # Rota principal para usuários autenticados, direcionando para o dashboard do administrador
   authenticated :user do
@@ -15,10 +12,17 @@ Rails.application.routes.draw do
   end
 
   # Rota principal para usuários não autenticados, direcionando para a página de login do Devise
-  devise_scope :user do
+  unauthenticated do
     root to: 'devise/sessions#new'
-    delete 'logout', to: 'devise/sessions#destroy', as: :logout
   end
+
+  # Rota para logout usando o Devise
+  devise_scope :user do
+    delete 'sign_out', to: 'devise/sessions#destroy', as: :logout
+  end
+
+  # Rotas para usuários, restritas apenas para ações de index e show
+  resources :users, only: [:index, :show]
 
   # Rotas para produtos, incluindo busca personalizada
   resources :produtos, except: [:new, :edit] do
